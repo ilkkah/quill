@@ -99,8 +99,8 @@ class Block extends BlockBlot {
     this.cache = {};
   }
 
-  path(index) {
-    return super.path(index, true);
+  path(index, tmp, inclusive) {
+    return super.path(index, typeof inclusive === 'boolean' ? inclusive : true);
   }
 
   removeChild(child) {
