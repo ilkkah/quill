@@ -28,12 +28,10 @@ class History extends Module {
       { key: 'z', shortKey: true, shiftKey: true },
       this.redo.bind(this),
     );
-    if (/Win/i.test(navigator.platform)) {
-      this.quill.keyboard.addBinding(
-        { key: 'y', shortKey: true },
-        this.redo.bind(this),
-      );
-    }
+    this.quill.keyboard.addBinding(
+      { key: 'y', shortKey: true },
+      this.redo.bind(this),
+    );
   }
 
   change(source, dest) {
