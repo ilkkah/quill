@@ -253,6 +253,7 @@ class BaseTooltip extends Tooltip {
         this.quill.root.scrollTop = scrollTop;
         break;
       }
+      case 'embed': // eslint-disable-next-line no-fallthrough
       case 'video': {
         value = extractVideoUrl(value);
       } // eslint-disable-next-line no-fallthrough
