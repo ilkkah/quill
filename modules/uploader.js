@@ -54,8 +54,15 @@ Uploader.DEFAULTS = {
         return delta.insert({ image });
       }, new Delta().retain(range.index).delete(range.length));
       this.quill.updateContents(update, Emitter.sources.USER);
-      this.quill.setSelection(
+
+      this.quill.insertText(
         range.index + images.length,
+        '\n',
+        Emitter.sources.USER,
+      );
+
+      this.quill.setSelection(
+        range.index + images.length + 1,
         Emitter.sources.SILENT,
       );
     });

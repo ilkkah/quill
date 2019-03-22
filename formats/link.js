@@ -5,6 +5,7 @@ class Link extends Inline {
     const node = super.create(value);
     node.setAttribute('href', this.sanitize(value));
     node.setAttribute('target', '_blank');
+    node.moi = 'terve';
     return node;
   }
 
