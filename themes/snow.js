@@ -50,8 +50,8 @@ class SnowTooltip extends BaseTooltip {
           if (link != null) {
             this.linkRange = new Range(range.index - offset, link.length());
             const preview = LinkBlot.formats(link.domNode);
-            this.preview.textContent = preview;
-            this.preview.setAttribute('href', preview);
+            this.preview.textContent = preview.href;
+            this.preview.setAttribute('href', preview.href);
             this.show();
             this.position(this.quill.getBounds(this.linkRange));
             return;
@@ -117,6 +117,8 @@ SnowTheme.DEFAULTS = extend(true, {}, BaseTheme.DEFAULTS, {
               preview.indexOf('mailto:') !== 0
             ) {
               preview = `mailto:${preview}`;
+            } else if (!/^[a-z]{3,5}:\/\//i.test(preview)) {
+              preview = '';
             }
             const { tooltip } = this.quill.theme;
             tooltip.edit('link', preview);

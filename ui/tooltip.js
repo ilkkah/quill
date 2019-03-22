@@ -17,8 +17,10 @@ class Tooltip {
   }
 
   position(reference) {
-    const left =
-      reference.left + reference.width / 2 - this.root.offsetWidth / 2;
+    const left = Math.max(
+      0,
+      reference.left + reference.width / 2 - this.root.offsetWidth / 2,
+    );
     // root.scrollTop should be 0 if scrollContainer !== root
     const top = reference.bottom + this.quill.root.scrollTop;
     this.root.style.left = `${left}px`;

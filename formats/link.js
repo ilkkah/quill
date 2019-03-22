@@ -2,15 +2,15 @@ import Inline from '../blots/inline';
 
 class Link extends Inline {
   static create(value) {
-    const node = super.create(value);
-    node.setAttribute('href', this.sanitize(value));
+    const node = super.create(value.href);
+    node.setAttribute('href', this.sanitize(value.href));
     node.setAttribute('target', '_blank');
-    node.moi = 'terve';
+    node.dataset.hash = value.hash;
     return node;
   }
 
   static formats(domNode) {
-    return domNode.getAttribute('href');
+    return { href: domNode.getAttribute('href'), hash: domNode.dataset.hash };
   }
 
   static sanitize(url) {
