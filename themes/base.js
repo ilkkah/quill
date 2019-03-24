@@ -239,17 +239,19 @@ class BaseTooltip extends Tooltip {
       case 'link': {
         const val = { href: value, hash: Date.now() };
         const { scrollTop } = this.quill.root;
-        if (this.linkRange) {
-          this.quill.formatText(
-            this.linkRange,
-            'link',
-            val,
-            Emitter.sources.USER,
-          );
-          delete this.linkRange;
-        } else {
-          this.restoreFocus();
-          this.quill.format('link', val, Emitter.sources.USER);
+        if (val.href) {
+          if (this.linkRange) {
+            this.quill.formatText(
+              this.linkRange,
+              'link',
+              val,
+              Emitter.sources.USER,
+            );
+            delete this.linkRange;
+          } else {
+            this.restoreFocus();
+            this.quill.format('link', val, Emitter.sources.USER);
+          }
         }
         this.quill.root.scrollTop = scrollTop;
         break;
