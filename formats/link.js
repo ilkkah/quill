@@ -21,7 +21,7 @@ class Link extends Inline {
     if (name !== this.statics.blotName || !value) {
       super.format(name, value);
     } else {
-      this.domNode.setAttribute('href', this.constructor.sanitize(value));
+      this.domNode.setAttribute('href', this.constructor.sanitize(value.href));
     }
   }
 }

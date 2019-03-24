@@ -237,9 +237,12 @@ class BaseTooltip extends Tooltip {
     let { value } = this.textbox;
     switch (this.root.getAttribute('data-mode')) {
       case 'link': {
+        console.log('value', value);
         const val = { href: value, hash: Date.now() };
+        console.log('val', val);
         const { scrollTop } = this.quill.root;
         if (this.linkRange) {
+          console.log('.. this.quill.formatText', val);
           this.quill.formatText(
             this.linkRange,
             'link',
@@ -249,6 +252,7 @@ class BaseTooltip extends Tooltip {
           delete this.linkRange;
         } else {
           this.restoreFocus();
+          console.log('.. this.quill.format', val);
           this.quill.format('link', val, Emitter.sources.USER);
         }
         this.quill.root.scrollTop = scrollTop;
