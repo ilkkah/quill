@@ -95,6 +95,7 @@ Quill.register(
     'modules/syntax': Syntax,
     'modules/table': Table,
     'modules/toolbar': Toolbar,
+    'modules/toolbar2': Toolbar,
 
     'themes/bubble': BubbleTheme,
     'themes/snow': SnowTheme,

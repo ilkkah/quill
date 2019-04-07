@@ -92,15 +92,15 @@ class SnowTheme extends BaseTheme {
     toolbar.container.classList.add('ql-snow');
     this.buildButtons(toolbar.container.querySelectorAll('button'), icons);
     this.buildPickers(toolbar.container.querySelectorAll('select'), icons);
-    this.tooltip = new SnowTooltip(this.quill, this.options.bounds);
-    if (toolbar.container.querySelector('.ql-link')) {
-      this.quill.keyboard.addBinding(
-        { key: 'k', shortKey: true },
-        (range, context) => {
-          toolbar.handlers.link.call(toolbar, !context.format.link);
-        },
-      );
-    }
+    // this.tooltip = new SnowTooltip(this.quill, this.options.bounds);
+    // if (toolbar.container.querySelector('.ql-link')) {
+    //   this.quill.keyboard.addBinding(
+    //     { key: 'k', shortKey: true },
+    //     (range, context) => {
+    //       toolbar.handlers.link.call(toolbar, !context.format.link);
+    //     },
+    //   );
+    // }
   }
 }
 SnowTheme.DEFAULTS = extend(true, {}, BaseTheme.DEFAULTS, {
@@ -108,6 +108,7 @@ SnowTheme.DEFAULTS = extend(true, {}, BaseTheme.DEFAULTS, {
     toolbar: {
       handlers: {
         link(value) {
+          console.log(value);
           if (value) {
             const range = this.quill.getSelection();
             if (range == null || range.length === 0) return;
@@ -121,6 +122,7 @@ SnowTheme.DEFAULTS = extend(true, {}, BaseTheme.DEFAULTS, {
               preview = '';
             }
             const { tooltip } = this.quill.theme;
+            console.log('link', preview);
             tooltip.edit('link', preview);
           } else {
             this.quill.format('link', false);

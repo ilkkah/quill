@@ -61,8 +61,9 @@ class Quill {
     }
   }
 
-  constructor(container, options = {}) {
+  constructor(container, options = {}, options2 = {}) {
     this.options = expandConfig(container, options);
+    this.options2 = expandConfig(container, options2);
     this.container = this.options.container;
     if (this.container == null) {
       return debug.error('Invalid Quill container', container);
@@ -91,11 +92,13 @@ class Quill {
     this.editor = new Editor(this.scroll);
     this.selection = new Selection(this.scroll, this.emitter);
     this.theme = new this.options.theme(this, this.options); // eslint-disable-line new-cap
+    this.bubbleTheme = new this.options2.theme(this, this.options2); // eslint-disable-line new-cap
     this.keyboard = this.theme.addModule('keyboard');
     this.clipboard = this.theme.addModule('clipboard');
     this.history = this.theme.addModule('history');
     this.uploader = this.theme.addModule('uploader');
     this.theme.init();
+    this.bubbleTheme.init();
     this.emitter.on(Emitter.events.EDITOR_CHANGE, type => {
       if (type === Emitter.events.TEXT_CHANGE) {
         this.root.classList.toggle('ql-blank', this.editor.isBlank());
@@ -483,6 +486,9 @@ function expandConfig(container, userConfig) {
         `Invalid theme ${userConfig.theme}. Did you register it?`,
       );
     }
+  }
+  if (userConfig.bubble) {
+    userConfig.bubble = Quill.import('themes/bubble');
   }
   const themeConfig = extend(true, {}, userConfig.theme.DEFAULTS);
   [themeConfig, userConfig].forEach(config => {

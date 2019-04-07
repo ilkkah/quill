@@ -191,6 +191,12 @@ class BaseTooltip extends Tooltip {
   constructor(quill, boundsContainer) {
     super(quill, boundsContainer);
     this.textbox = this.root.querySelector('input[type="text"]');
+    this.linkSave = this.root.querySelector('.ql-save.ql-bubble-icon');
+    this.linkRemove = this.root.querySelector('.ql-remove.ql-bubble-icon');
+
+    this.linkSave.addEventListener('click', this.save.bind(this));
+    this.linkRemove.addEventListener('click', this.removeLink.bind(this));
+
     this.listen();
   }
 
@@ -219,7 +225,7 @@ class BaseTooltip extends Tooltip {
       this.textbox.value = '';
     }
     this.position(this.quill.getBounds(this.quill.selection.savedRange));
-    this.textbox.select();
+    this.textbox.focus();
     this.textbox.setAttribute(
       'placeholder',
       this.textbox.getAttribute(`data-${mode}`) || '',
@@ -231,6 +237,11 @@ class BaseTooltip extends Tooltip {
     const { scrollTop } = this.quill.scrollingContainer;
     this.quill.focus();
     this.quill.scrollingContainer.scrollTop = scrollTop;
+  }
+
+  removeLink() {
+    this.textbox.value = '';
+    this.save();
   }
 
   save() {
@@ -252,6 +263,9 @@ class BaseTooltip extends Tooltip {
             this.restoreFocus();
             this.quill.format('link', val, Emitter.sources.USER);
           }
+        }
+        else {
+          this.quill.format('link', false, Emitter.sources.USER);
         }
         this.quill.root.scrollTop = scrollTop;
         break;

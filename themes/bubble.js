@@ -3,6 +3,7 @@ import Emitter from '../core/emitter';
 import BaseTheme, { BaseTooltip } from './base';
 import { Range } from '../core/selection';
 import icons from '../ui/icons';
+import LinkBlot from '../formats/link';
 
 const TOOLBAR_CONFIG = [
   ['bold', 'italic', 'link'],
@@ -83,7 +84,9 @@ class BubbleTooltip extends BaseTooltip {
 BubbleTooltip.TEMPLATE = [
   '<span class="ql-tooltip-arrow"></span>',
   '<div class="ql-tooltip-editor">',
-  '<input type="text" data-formula="e=mc^2" data-link="https://quilljs.com" data-video="Embed URL">',
+  '<input type="text" data-formula="e=mc^2" data-link="https://onetool.app" data-video="Embed URL">',
+  '<i class="ql-save ql-bubble-icon"></i>',
+  '<i class="ql-remove ql-bubble-icon"></i>',
   '<a class="ql-close"></a>',
   '</div>',
 ].join('');
@@ -105,6 +108,15 @@ class BubbleTheme extends BaseTheme {
     this.tooltip.root.appendChild(toolbar.container);
     this.buildButtons(toolbar.container.querySelectorAll('button'), icons);
     this.buildPickers(toolbar.container.querySelectorAll('select'), icons);
+
+    if (toolbar.container.querySelector('.ql-link')) {
+      this.quill.keyboard.addBinding(
+        { key: 'k', shortKey: true },
+        (range, context) => {
+          toolbar.handlers.link.call(toolbar, !context.format.link);
+        },
+      );
+    }
   }
 }
 BubbleTheme.DEFAULTS = extend(true, {}, BaseTheme.DEFAULTS, {
@@ -113,9 +125,22 @@ BubbleTheme.DEFAULTS = extend(true, {}, BaseTheme.DEFAULTS, {
       handlers: {
         link(value) {
           if (!value) {
-            this.quill.format('link', false);
+            var range = this.quill.getSelection();
+
+            if (range) {
+              const [link, offset] = this.quill.scroll.descendant(
+                LinkBlot,
+                range.index,
+              );
+
+              if (link != null) {
+                this.linkRange = new Range(range.index - offset, link.length());
+                const preview = LinkBlot.formats(link.domNode);
+                this.quill.bubbleTheme.tooltip.edit('link', preview.href);
+              }
+            }
           } else {
-            this.quill.theme.tooltip.edit();
+            this.quill.bubbleTheme.tooltip.edit();
           }
         },
       },
