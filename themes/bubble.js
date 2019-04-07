@@ -68,7 +68,7 @@ class BubbleTooltip extends BaseTooltip {
   }
 
   cancel() {
-    this.show();
+    this.hide();
   }
 
   position(reference) {
