@@ -5,6 +5,8 @@ const ATTRIBUTES = ['alt', 'height', 'width'];
 
 class Image extends EmbedBlot {
   static create(value) {
+    console.log('create', value);
+
     const node = super.create(value);
     if (typeof value === 'string') {
       node.setAttribute('src', this.sanitize(value));
@@ -13,6 +15,8 @@ class Image extends EmbedBlot {
   }
 
   static formats(domNode) {
+    console.log('formats', domNode);
+
     return ATTRIBUTES.reduce((formats, attribute) => {
       if (domNode.hasAttribute(attribute)) {
         formats[attribute] = domNode.getAttribute(attribute);
@@ -43,6 +47,8 @@ class Image extends EmbedBlot {
   }
 
   format(name, value) {
+    console.log('format', { name, value });
+
     if (ATTRIBUTES.indexOf(name) > -1) {
       if (value) {
         this.domNode.setAttribute(name, value);

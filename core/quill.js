@@ -62,7 +62,7 @@ class Quill {
   }
 
   constructor(container, options = {}, options2 = {}) {
-    this.options = expandConfig(container, options);
+    this.options = expandConfig(container, options, true);
     this.options2 = expandConfig(container, options2);
     this.container = this.options.container;
     if (this.container == null) {
@@ -459,24 +459,36 @@ Quill.version = typeof QUILL_VERSION === 'undefined' ? 'dev' : QUILL_VERSION;
 Quill.imports = {
   delta: Delta,
   parchment: Parchment,
+  'core/emitter': Emitter,
   'core/module': Module,
   'core/theme': Theme,
 };
 
-function expandConfig(container, userConfig) {
-  userConfig = extend(
-    true,
-    {
-      container,
-      modules: {
-        clipboard: true,
-        keyboard: true,
-        history: true,
-        uploader: true,
+function expandConfig(container, userConfig, extendUserConfig) {
+  if (extendUserConfig) {
+    userConfig = extend(
+      true,
+      {
+        container,
+        modules: {
+          clipboard: true,
+          keyboard: true,
+          history: true,
+          uploader: true,
+        },
       },
-    },
-    userConfig,
-  );
+      userConfig,
+    );
+  }
+  else {
+    userConfig = extend(
+      true,
+      {
+        container,
+      },
+      userConfig,
+    );
+  }
   if (!userConfig.theme || userConfig.theme === Quill.DEFAULTS.theme) {
     userConfig.theme = Theme;
   } else {

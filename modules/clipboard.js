@@ -146,7 +146,7 @@ class Clipboard extends Module {
     const html = e.clipboardData.getData('text/html');
     const text = e.clipboardData.getData('text/plain');
     const files = Array.from(e.clipboardData.files || []);
-    if (!html && files.length > 0) {
+    if (files.length > 0) {
       this.quill.uploader.upload(range, files);
     } else {
       this.onPaste(range, { html, text });
