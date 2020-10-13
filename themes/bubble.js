@@ -1,4 +1,4 @@
-import extend from 'extend';
+import merge from 'lodash.merge';
 import Emitter from '../core/emitter';
 import BaseTheme, { BaseTooltip } from './base';
 import { Range } from '../core/selection';
@@ -119,7 +119,7 @@ class BubbleTheme extends BaseTheme {
     }
   }
 }
-BubbleTheme.DEFAULTS = extend(true, {}, BaseTheme.DEFAULTS, {
+BubbleTheme.DEFAULTS = merge({}, BaseTheme.DEFAULTS, {
   modules: {
     toolbar: {
       handlers: {

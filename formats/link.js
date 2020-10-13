@@ -4,6 +4,7 @@ class Link extends Inline {
   static create(value) {
     const node = super.create(value.href);
     node.setAttribute('href', this.sanitize(value.href));
+    node.setAttribute('rel', 'noopener noreferrer');
     node.setAttribute('target', '_blank');
     node.dataset.hash = value.hash;
     return node;
