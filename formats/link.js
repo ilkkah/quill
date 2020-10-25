@@ -6,7 +6,7 @@ class Link extends Inline {
     node.setAttribute('href', this.sanitize(value.href));
     node.setAttribute('rel', 'noopener noreferrer');
     node.setAttribute('target', '_blank');
-    node.dataset.hash = value.hash;
+    node.dataset.hash = value.hash || Date.now();
     return node;
   }
 
