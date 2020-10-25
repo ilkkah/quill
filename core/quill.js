@@ -78,6 +78,7 @@ class Quill {
     instances.set(this.container, this);
     this.root = this.addContainer('ql-editor');
     this.root.classList.add('ql-blank');
+    this.root.classList.add('hovercard-offsets');
     this.scrollingContainer = this.options.scrollingContainer || this.root;
     this.emitter = new Emitter();
     const ScrollBlot = this.options.registry.query(
