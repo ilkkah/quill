@@ -457,19 +457,31 @@ Quill.imports = {
   'core/theme': Theme,
 };
 
-function expandConfig(container, userConfig) {
-  userConfig = merge(
-    {
-      container,
-      modules: {
-        clipboard: true,
-        keyboard: true,
-        history: true,
-        uploader: true,
+function expandConfig(container, userConfig, includeModules) {
+
+  if (includeModules) {
+    userConfig = merge(
+      {
+        container,
+        modules: {
+          clipboard: true,
+          keyboard: true,
+          history: true,
+          uploader: true,
+        },
       },
-    },
-    userConfig,
-  );
+      userConfig,
+    );
+  }
+  else {
+    userConfig = merge(
+      {
+        container,
+      },
+      userConfig,
+    );
+
+  }
   if (!userConfig.theme || userConfig.theme === Quill.DEFAULTS.theme) {
     userConfig.theme = Theme;
   } else {
