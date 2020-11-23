@@ -5,7 +5,6 @@ import Module from '../core/module';
 class Uploader extends Module {
   constructor(quill, options) {
     super(quill, options);
-    console.log('********************** Uploader');
     quill.root.addEventListener('drop', e => {
       e.preventDefault();
       let native;
@@ -21,7 +20,6 @@ class Uploader extends Module {
       }
       const normalized = quill.selection.normalizeNative(native);
       const range = quill.selection.normalizedToRange(normalized);
-      console.log('dropped', e.dataTransfer.files);
       this.upload(range, e.dataTransfer.files);
     });
   }
