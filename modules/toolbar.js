@@ -16,6 +16,10 @@ class Toolbar extends Module {
       this.container = container;
     } else if (typeof this.options.container === 'string') {
       this.container = document.querySelector(this.options.container);
+
+      if (Array.isArray(this.options.items)) {
+        addControls(this.container, this.options.items);
+      }
     } else {
       this.container = this.options.container;
     }
