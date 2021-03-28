@@ -10,7 +10,10 @@ class IconPicker extends Picker {
       },
     );
     this.defaultItem = this.container.querySelector('.ql-selected');
-    this.selectItem(this.defaultItem);
+
+    if (this.defaultItem) {
+      this.selectItem(this.defaultItem);
+    }
   }
 
   selectItem(target, trigger) {
