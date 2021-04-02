@@ -108,7 +108,6 @@ SnowTheme.DEFAULTS = merge({}, BaseTheme.DEFAULTS, {
     toolbar: {
       handlers: {
         link(value) {
-          console.log(value);
           if (value) {
             const range = this.quill.getSelection();
             if (range == null || range.length === 0) return;
@@ -122,7 +121,6 @@ SnowTheme.DEFAULTS = merge({}, BaseTheme.DEFAULTS, {
               preview = '';
             }
             const { tooltip } = this.quill.theme;
-            console.log('link', preview);
             tooltip.edit('link', preview);
           } else {
             this.quill.format('link', false);

@@ -84,7 +84,7 @@ class BubbleTooltip extends BaseTooltip {
 BubbleTooltip.TEMPLATE = [
   '<span class="ql-tooltip-arrow"></span>',
   '<div class="ql-tooltip-editor">',
-  '<input type="text" data-formula="e=mc^2" data-link="https://aamu.app" data-video="Embed URL">',
+  '<input type="text" data-formula="e=mc^2" placeholder="url..." data-link="url..." data-video="Embed URL">',
   '<i class="ql-save ql-bubble-icon"></i>',
   '<i class="ql-remove ql-bubble-icon"></i>',
   '<a class="ql-close"></a>',
