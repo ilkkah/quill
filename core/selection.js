@@ -151,8 +151,8 @@ class Selection {
     }
     let side = 'left';
     let rect;
-    console.log(node, Text, node instanceof Text);
-    if (node instanceof Text) {
+    console.log(node, Text, node instanceof Text, window.Text, node instanceof window.Text);
+    if (node instanceof window.Text) {
       if (offset < node.data.length) {
         range.setStart(node, offset);
         range.setEnd(node, offset + 1);
